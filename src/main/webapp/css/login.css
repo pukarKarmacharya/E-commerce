@@ -33,6 +33,15 @@ body {
 	margin-top: 10px
 }
 
+.register-message {
+	color: seagreen;
+	align-content: center;
+	text-align: center;
+	margin-top: 10px;
+	position: absolute;
+    top: 0;
+}
+
 .logo{
 	font-family: "museo-slab";  
 	font-size:20px;
@@ -109,6 +118,22 @@ input {
 .form-login input[type="submit"]:focus, .form-login input[type="submit"]:hover {
 	background-color: #197071;
 }
+
+.form-login a {
+	background-color: #197071;
+	color: #eee;
+	font-weight: bold;
+	text-transform: uppercase;
+    padding: 17px 13px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    
+}
+.form-login a:focus, .form-login a:hover {
+	background-color: #00B9BC;
+}
+
 .form-field {
 	display: -webkit-box;
 	display: -webkit-flex;

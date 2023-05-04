@@ -1,5 +1,6 @@
 <%@ page import="java.sql.Connection"%>
-<%@ page import="week5.DbConnection"%>
+<%@ page import="controller.dbconnection.DbConnection"%>
+
 <%@ page import="java.sql.PreparedStatement"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -7,29 +8,51 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<title>Register your account now</title>
+	<link rel="stylesheet" type="text/css" 
+		href="${pageContext.request.contextPath}/css/register.css"/>
 </head>
 <body>
-	<jsp:useBean id="Student" class ="week5.Student" scope="page"/>
-	<jsp:setProperty property="*" name="Student"/>
-	<%
-	Connection con = DbConnection.getConnection();
-	String query = "Insert into register(first_name,last_name,username,password) value(?,?,?,?)";
-	PreparedStatement st = con.prepareStatement(query);
-	st.setString(1, Student.getName());
-	st.setString(2, Student.getModule());
-	st.setString(3, Student.getGender());
-	st.setString(4, Student.getNumber());
-	st.setShort(5, Student.getAge());
-
-	int result = st.executeUpdate();
-	if(result> 0) {
-		out.print("Data inserted");
-	}else {
-		out.print("Data Failed");
-	}
+	<div class="wrapper">
+		<div class="registration_form">
+			<div class="title">
+				Registration Form
+			</div>
 	
-	
-	%>
+			<form action="${pageContext.request.contextPath}/UserRegister" method="post" enctype="multipart/form-data">
+				<div class="form_wrap">
+					<div class="input_grp">
+						<div class="input_wrap">
+							<label for="firstName">First Name</label>
+							<input type="text" id="firstName" name="firstName">
+						</div>
+						<div class="input_wrap">
+							<label for="lastName">Last Name</label>
+							<input type="text" id="lastName" name="lastName">
+						</div>
+					</div>
+					<div class="input_wrap">
+						<label for="username">Username</label>
+						<input type="text" id="username" name="username">
+					</div>
+					<div class="input_wrap">
+						<label for="password">Password</label>
+						<input type="password" id="password" name="password">
+					</div>
+					<div class="input_wrap">
+						<label for="role">Role</label>
+						<input type="text" id="role" name="role">
+					</div>
+					<div class="input_wrap">
+				        <label for="image">Profile Picture</label>
+				        <input type="file" id="image" name="image">
+				    </div>
+					<div class="input_wrap">
+						<input type="submit" value="Register Now" class="submit_btn">
+					</div>
+   				</div>
+			</form>
+		</div>
+	</div>
 </body>
 </html>

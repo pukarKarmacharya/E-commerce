@@ -6,12 +6,17 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Islington/4th sem/Advanced Programming and Technologies/Advanced Programming and Technologies/Week 7/Tutorial/taglibs1.2.5/taglibs-standard-impl-1.2.5.jar">
+	<classpathentry kind="lib" path="D:/Islington/4th sem/Advanced Programming and Technologies/mysql-connector-j-8.0.32/mysql-connector-j-8.0.32/mysql-connector-j-8.0.32.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Islington/4th sem/Advanced Programming and Technologies/Advanced Programming and Technologies/Week 7/Tutorial/taglibs1.2.5/taglibs-standard-spec-1.2.5.jar">
+	<classpathentry kind="lib" path="D:/Islington/4th sem/Advanced Programming and Technologies/taglibs-standard-impl-1.2.5.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="D:/Islington/4th sem/Advanced Programming and Technologies/taglibs-standard-spec-1.2.5.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

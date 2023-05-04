@@ -86,3 +86,41 @@ li > form > input{
     padding: 8px;
     margin: 7px;
 }
+
+.users-info {
+	margin: 2%;
+}
+
+.users-info .users {
+	display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    align-content: space-around;
+    gap: 30px;
+}
+
+
+.users-info form{
+	display: inline;
+    margin-inline: 10px;
+}
+
+.users-info .users .card {
+    list-style: none;
+    background-color: #00ace6;
+    color: white;
+    padding: 2rem;
+}
+
+.users-info button{
+	padding: 3px;
+    width: 38%;
+    background: transparent;
+    color: white;
+    margin-top: 5px;
+}
+
+.users-info button:hover {
+	background-color: white;
+	color: #00ace6;
+}

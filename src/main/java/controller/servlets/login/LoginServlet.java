@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import controller.dbconnection.DbConnection;
 import model.PasswordEncryptionWithAes;
+import model.User;
 import resources.MyConstants;
 
 @WebServlet("/LoginServlet")
@@ -24,8 +25,9 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String user = request.getParameter("userName");
 		String pwd = request.getParameter("userPwd");
-
+		
 		DbConnection connection = new DbConnection();
+		
 		Boolean isUserRegistered = connection.isUserRegistered(MyConstants.CHECK_LOGIN_INFO, user, pwd);
 		if(isUserRegistered != null && isUserRegistered){
 			HttpSession session = request.getSession();

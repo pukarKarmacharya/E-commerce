@@ -35,14 +35,17 @@ private ServletContext context;
 		boolean isLoginJsp = uri.toLowerCase().endsWith("login.jsp");
 		boolean isLoginServlet = uri.endsWith("LoginServlet");
 		boolean isLogoutServlet = uri.endsWith("LogoutServlet");
-		this.context.log("Requested Resource::"+uri);
-		
+		boolean isRegisterJsp = uri.endsWith("register.jsp");
+		boolean isUserRegisterServlet = uri.endsWith("UserRegister");
+
 		HttpSession session = req.getSession(false);
         boolean loggedIn = session != null && session.getAttribute("user") != null;
 
-        if(!loggedIn && !(isLoginJsp || isLoginServlet) && !uri.contains("css")){
+        if(!loggedIn && !(isLoginJsp || isUserRegisterServlet || isLoginServlet || isRegisterJsp) && !uri.contains("css")){
             res.sendRedirect(req.getContextPath()+"/login.jsp");
-        }else if(loggedIn && !(!isLoginJsp || isLogoutServlet)) {
+        }else if (loggedIn && (isRegisterJsp)) {
+		    res.sendRedirect(req.getContextPath() + "/home.jsp");
+	    }else if(loggedIn && !(!isLoginJsp || isLogoutServlet)) {
 			res.sendRedirect(req.getContextPath()+"/home.jsp");
 		}else{
 			chain.doFilter(request, response);

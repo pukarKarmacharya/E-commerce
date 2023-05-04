@@ -8,8 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login.css">
 </head>
 <body>
-	<% String errorMessage = (String) request.getAttribute("errorMessage"); %>
-	
+	<% 
+	String errorMessage = (String) request.getAttribute("errorMessage");
+	String registerMessage = (String) request.getHeader("registerMessage");
+	%>
+	<% if (registerMessage != null) { %>
+		    <div class="register-message"><%= registerMessage %></div>
+		<% } %>
 	<div class="container">
 		<% if (errorMessage != null) { %>
 		    <div class="error-message"><%= errorMessage %></div>
@@ -33,6 +38,9 @@
 				</div>
 				<div class="form-field">
 					<input type="submit" value="Login"/>
+				</div>
+				<div class="form-field">
+					<a href="${pageContext.request.contextPath}/pages/register.jsp">Create Your New Account</a>
 				</div>
 			</form>
 		</div>
