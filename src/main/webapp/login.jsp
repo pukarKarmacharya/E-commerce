@@ -19,7 +19,7 @@
 		<% if (errorMessage != null) { %>
 		    <div class="error-message"><%= errorMessage %></div>
 		<% } %>
-		<div class="logo">My-ECommerce</div>
+		<div class="logo">Reeven Store</div>
     	<div class="login-item">
 			<form action="LoginServlet" method="post" class="form form-login">
 		        <div class="form-field">

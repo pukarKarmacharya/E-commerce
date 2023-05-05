@@ -29,9 +29,14 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Welcome to E-commerce</title>
+	<title>Welcome to Reeven Store</title>
 	<link rel="stylesheet" type="text/css" 
 	href="${pageContext.request.contextPath}/css/home.css"/>
+	<style type="text/css">
+        body {
+            background-color: lightblue;
+        }
+    </style>
 </head>
 
 <body>
@@ -43,7 +48,7 @@
 		SELECT first_name, last_name, username, image  FROM register WHERE role="user"
 	</sql:query>
 		
-	<div class="flex-container">
+	<%-- <div class="flex-container">
 	  	<h1 class="logo"><a href="#">Brand</a></h1>
 	  	<ul class="navigation">
 	    	<li><a href="#">Home</a></li>
@@ -70,29 +75,107 @@
 		    	</form>
 		    </li>
 	  	</ul>
-  	</div>
+  	</div> --%>
+  	
+  	<header>
+        <h1 class="logo"><a href="#">Reeven Store</a></h1>
+        <nav>
+            <ul>
+                <li class="selected"><a href="#">Home</a></li>
+                <li><a href="#">Product</a></li>
+                <li><a href="${pageContext.request.contextPath}/pages/admin.jsp">Blog</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="${pageContext.request.contextPath}/pages/user.jsp">Profile</a></li>
+                <li>
+		    		<form action="
+		    				<%if(!mySession.checkUser(user)){
+		    					out.print(mainPath);%>/login.jsp<%
+		   					} 
+		    				else {
+		    					out.print(mainPath);%>/LogoutServlet<%
+		   					}%>
+		    				"
+		    		method="post">
+		  			<input type="submit" value="
+		    			<%if(mySession.checkUser(user)){%>
+				    		Logout
+				   		<%}else{%>
+				    		Login
+				   		<%}%>
+			   		"/>
+		    		</form>
+		    	</li>
+            </ul>
+        </nav>
+    </header>
   
-	<div class="users-info">
- 	    <div class="users">
- 	    <c:forEach var="user" items="${allUser.rows}">
-            <div class="card">
-                <img src="http://localhost:8080/images/${user.image} " class="card-img-top" alt="...">
+  	<div class="box"></div>
+  
+  	<div class="grid">
+        <div class="grid-container">
+            <img class="pic" src="">
+            <h3>Bosh Jigsaw</h3>
+            <p>NRP. 100</p>
+            <p><button>Add to Cart</button></p>
+        </div>
+
+        <div class="grid-container">
+            <img class="pic" src="">
+            <h3>Hammer</h3>
+            <p>NRP. 100</p>
+            <p><button>Add to Cart</button></p>
+        </div>
+        <div class="grid-container">
+            <img class="pic" src="">
+            <h3>RJ45 Clip</h3>
+            <p>NRP. 100</p>
+            <p><button>Add to Cart</button></p>
+        </div>
+        <div class="grid-container">
+            <img class="pic" src="">
+            <h3>Wire Stripper</h3>
+            <p>NRP. 100</p>
+            <p><button>Add to Cart</button></p>
+        </div>
+        <div class="grid-container">
+            <img class="pic" src="">
+            <h3>50mm Lock</h3>
+            <p>NRP. 100</p>
+            <p><button>Add to Cart</button></p>
+        </div>
+    </div>
+  	
+		<div class="users-info">
+ 	    		<div class="users">
+ 	    			<c:forEach var="user" items="${allUser.rows}">
+         		   <div class="card">
+                <img src="http://localhost:8081/images/${user.image} " class="card-img-top" alt="...">
                 <div class="card-body">
                     <h4 class="card-title">${user.first_name} ${user.last_name}</h4>
                     <h5 class="card-text">${user.username}</h5>
                 </div>
-                <form method="post">
+           	     <form method="post">
                         <input type="hidden" name="updateId" value="${user.username}" />
                         <button type="submit">Update</button>
-               	</form>
-                <form method="post">
+            	   	</form>
+               		 <form method="post">
                         <input type="hidden" name="deleteId" value="${user.username}" />
                         <button type="submit">Delete</button>
-               	</form>
-            </div>
-      	</c:forEach>
-        </div>
-	</div>
-  	
+               		</form>
+            		</div>
+      				</c:forEach>
+       			</div>
+			</div>
+  	<footer>
+        <table width="100%">
+            <tr>
+                <th>
+                    <div style="color:black;font-family:Courier New;">
+                        <p>&copy; Reeven Store</p>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </footer>
 </body>
 </html>

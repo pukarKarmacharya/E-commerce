@@ -124,3 +124,70 @@ li > form > input{
 	background-color: white;
 	color: #00ace6;
 }
+
+/*-----------------------------------------*/
+
+header {
+    background-color: white;
+    position: fixed;/*content moves underneath*/
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;/*to align text in center*/
+    box-shadow: 0 0 25px 0 black;/*adds shadow 25px blur*/
+}
+
+header img {
+	height: 80px;
+	margin-left: 40px;
+}
+
+/*header* means any element inside header*/
+header * {
+    display: inline;/*nav text horizontal, also bullet points disappears*/
+}
+
+header li {
+    margin: 20px;/*text margin*/
+}
+
+header li a {
+    color: black;
+    text-decoration: none;/*removes underline*/
+}
+
+body {
+    height: 125vh;
+    margin-top: 50px;/*content was obscured by nav-bar*/
+    padding: 30px;
+}
+
+.selected{
+	text-decoration: underline;
+}
+
+.box{
+	padding: 10px;
+	margin: auto;
+	margin-top: 10px;
+}
+
+.grid {
+	display: grid;
+	grid-gap: 10px;
+	grid-auto-rows: minmax(600px, 1fr);
+	grid-template-columns:  repeat( auto-fill, minmax(300px, 1fr) );
+	
+}
+
+.grid-container {
+	background-color:white;
+	padding:10px;
+}
+
+.pic{
+	width: 100%;
+	height: 80%;
+}
