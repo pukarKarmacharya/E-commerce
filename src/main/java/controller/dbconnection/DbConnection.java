@@ -226,7 +226,7 @@ public class DbConnection {
 		Connection dbConnection = getConnection();
 		if(dbConnection != null) {
 			try {
-				if(isProductAlreadyAdded(productModel.getProductName())) return -1;
+				//if(isProductAlreadyAdded(productModel.getProductName())) return -1;
 				
 				PreparedStatement statement = dbConnection.prepareStatement(query);
 				statement.setString(1, productModel.getProductName());
@@ -240,6 +240,7 @@ public class DbConnection {
 				if(result>=0) return 1;
 				else return 0;
 			} catch (Exception e) {
+				System.out.print("add-");
 				System.out.println(e);
 				return -2; 
 				}

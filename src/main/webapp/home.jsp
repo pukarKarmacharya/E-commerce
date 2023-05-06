@@ -45,7 +45,7 @@
 	
 	<!-- Executing Query Using SQL Tag Library -->
 	<sql:query var="allProduct" dataSource="${dbConnection}">
-		SELECT product_name, price, stock, brand, category  FROM products
+		SELECT product_name, price, stock, brand, category  FROM product
 	</sql:query>
 		
 	<%-- <div class="flex-container">
