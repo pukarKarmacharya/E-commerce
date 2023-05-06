@@ -44,8 +44,8 @@
 	url="jdbc:mysql://localhost:3306/reeven_store" user="root" password=""/>
 	
 	<!-- Executing Query Using SQL Tag Library -->
-	<sql:query var="allUser" dataSource="${dbConnection}">
-		SELECT first_name, last_name, username, image  FROM register WHERE role="user"
+	<sql:query var="allProduct" dataSource="${dbConnection}">
+		SELECT product_name, price, stock, brand, category  FROM products
 	</sql:query>
 		
 	<%-- <div class="flex-container">
@@ -147,19 +147,19 @@
   	
 		<div class="users-info">
  	    		<div class="users">
- 	    			<c:forEach var="user" items="${allUser.rows}">
+ 	    			<c:forEach var="product" items="${allProduct.rows}">
          		   <div class="card">
-                <img src="http://localhost:8081/images/${user.image} " class="card-img-top" alt="...">
+                <img src="http://localhost:8081/images/${product.image} " class="card-img-top" alt="...">
                 <div class="card-body">
-                    <h4 class="card-title">${user.first_name} ${user.last_name}</h4>
-                    <h5 class="card-text">${user.username}</h5>
+                    <h4 class="card-title">${product.product_name} ${product.price}</h4>
+                    <h5 class="card-text">${product.product_name}</h5>
                 </div>
            	     <form method="post">
-                        <input type="hidden" name="updateId" value="${user.username}" />
+                        <input type="hidden" name="updateId" value="${product.product_name}" />
                         <button type="submit">Update</button>
             	   	</form>
                		 <form method="post">
-                        <input type="hidden" name="deleteId" value="${user.username}" />
+                        <input type="hidden" name="deleteId" value="${product.username}" />
                         <button type="submit">Delete</button>
                		</form>
             		</div>

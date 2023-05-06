@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import model.PasswordEncryptionWithAes;
 import model.User;
+import model.Product;
+
 import resources.MyConstants;
 
 public class DbConnection {
@@ -84,6 +86,21 @@ public class DbConnection {
 						
 	}
 	
+	public Boolean isProductAlreadyAdded(String productName) {
+		Connection dbConnection = getConnection();
+		if(dbConnection != null) {
+			try {
+				PreparedStatement statement = dbConnection.prepareStatement(MyConstants.CHECK_PRODUCT_INFO);
+				statement.setString(1, productName);
+				ResultSet result = statement.executeQuery();
+				if(result.next()) {
+					return true;		
+				}else return false;
+			} catch (SQLException e) { return null; }
+		}else { return null; }
+						
+	}
+	
 	public Boolean isUserRegistered(String query, String username, String password) {
 		Connection dbConnection = getConnection();
 		if(dbConnection != null) {
@@ -96,6 +113,22 @@ public class DbConnection {
 					String passwordDb  = result.getString("password");
 					String decryptedPwd = PasswordEncryptionWithAes.decrypt(passwordDb, username);
 					if(decryptedPwd!=null && userDb.equals(username) && decryptedPwd.equals(password)) return true;
+					else return false;
+				}else return false;
+			} catch (SQLException e) { return null; }
+		}else { return null; }
+	}
+	
+	public Boolean isproductRegistered(String query, String productName) {
+		Connection dbConnection = getConnection();
+		if(dbConnection != null) {
+			try {
+				PreparedStatement statement = dbConnection.prepareStatement(query);
+				statement.setString(1, productName);
+				ResultSet result = statement.executeQuery();
+				if(result.next()) {
+					String productDb = result.getString("productName");
+					if(productDb.equals(productName) ) return true;
 					else return false;
 				}else return false;
 			} catch (SQLException e) { return null; }
@@ -187,4 +220,62 @@ public class DbConnection {
 		}else { return null; }
 	}
 	//	End region Delete operation
+	
+//	Start region Create operation
+	public int addProduct(String query, Product productModel) {
+		Connection dbConnection = getConnection();
+		if(dbConnection != null) {
+			try {
+				if(isProductAlreadyAdded(productModel.getProductName())) return -1;
+				
+				PreparedStatement statement = dbConnection.prepareStatement(query);
+				statement.setString(1, productModel.getProductName());
+				statement.setInt(2, productModel.getPrice());
+				statement.setInt(3, productModel.getStock());
+				statement.setString(4, productModel.getBrand());
+				statement.setString(5, productModel.getCategory());
+				statement.setString(6, productModel.getImageUrlFromPart());
+
+				int result = statement.executeUpdate();
+				if(result>=0) return 1;
+				else return 0;
+			} catch (Exception e) {
+				System.out.println(e);
+				return -2; 
+				}
+		}else { return -3; }
+	}
+	//	End region Create operation
+	
+	//	Start region Update operation
+	public Boolean updateProduct(String query, String productName) {
+		Connection dbConnection = getConnection();
+		if(dbConnection != null) {
+			try {
+				PreparedStatement statement = dbConnection.prepareStatement(query);
+				statement.setString(1, productName);
+				int result = statement.executeUpdate();
+				if(result>=0)return true;
+				else return false;
+			} catch (SQLException e) { return null; }
+		}else { return null; }
+	}
+	//	End region Update operation
+	
+	//	Start region Delete operation
+	public Boolean deleteProduct(String query, String productName) {
+		Connection dbConnection = getConnection();
+		if(dbConnection != null) {
+			try {
+				PreparedStatement statement = dbConnection.prepareStatement(query);
+				statement.setString(1, productName);
+				int result = statement.executeUpdate();
+				if(result>=0)return true;
+				else return false;
+			} catch (SQLException e) { return null; }
+		}else { return null; }
+	}
+	//	End region Delete operation
+	
+	
 }

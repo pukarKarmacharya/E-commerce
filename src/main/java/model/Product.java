@@ -6,13 +6,13 @@ import javax.servlet.http.Part;
 
 import resources.MyConstants;
 
-public class Products {
+public class Product {
 	String productName, brand, category, imageUrlFromPart;
 	int price, stock;
 	
-	public Products() {}
+	public Product() {}
 	
-	public Products(String productName, int price, int stock, 
+	public Product(String productName, int price, int stock, 
 			String brand, String category, Part part){
 		this.productName = productName;
 		this.price = price;

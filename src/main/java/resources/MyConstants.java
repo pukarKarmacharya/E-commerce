@@ -23,6 +23,8 @@ public class MyConstants {
 	public static final String GET_ALL_INFO_BY_ID = "SELECT * FROM register WHERE id = ?";
 	public static final String IS_USER = "SELECT role FROM register WHERE username = ?";
 	
+	public static final String CHECK_PRODUCT_INFO = "SELECT product_name FROM product WHERE product_name = ?";	
+
 	// Start Region: Insert Query
 	public static final String USER_REGISTER = "INSERT INTO register"
 			+ "(first_name, last_name, username, password, role, image)"
@@ -39,9 +41,16 @@ public class MyConstants {
 	public static final String UPDATE_USER_INFO = "UPDATE register SET first_name=?, "
 				+ "last_name=?, username=?, role=? WHERE username=?";
 	// End Region: Update Query
+	
+	public static final String UPDATE_PRODUCT_INFO = "UPDATE register SET productName=?, "
+			+ "price=?, stock=?, brand=? catagory=? WHERE productID=?";
 		
 	// Start Region: Delete Query
 	public static final String DELETE_USER = "DELETE FROM register WHERE username=?";
+	// End Region: Delete Query
+	
+	// Start Region: Delete Query
+	public static final String DELETE_Product = "DELETE FROM register WHERE ProductID=?";
 	// End Region: Delete Query
 
 }

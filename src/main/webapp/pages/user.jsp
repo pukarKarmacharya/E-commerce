@@ -88,7 +88,10 @@
                 <h5>January 1, 2022 AT 11:00 PM</h5>
                 <p>Technolog and collaborative. </p>
                 <p>If we thi generations.</p>
+                
+           
             </div>
+            
         </div>
 
         <div class="rightcolumn">
