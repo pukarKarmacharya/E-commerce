@@ -34,7 +34,7 @@
 	href="${pageContext.request.contextPath}/css/user.css"/>
 	<style type="text/css">
         body {
-            background-color: lightblue;
+            background-color: blue;
         }
     </style>
 </head>
@@ -90,6 +90,40 @@
                 <p>If we think about the technologies that weve all got in your pocket like smartphones, tablets. We use of social medias, how much choice do we have if we dont use these technologies we get carried away. 
 
                     No doubt technology is a blessing to humans its like a coin which has both positive and negative sides. The way we use     today directly impacts present and future generations.</p>
+            
+            <form action="${pageContext.request.contextPath}/ProductAdd" method="post" enctype="multipart/form-data">
+				<div class="form_wrap">
+					<div class="input_grp">
+						<div class="input_wrap">
+							<label for="productName">Product Name</label>
+							<input type="text" id="productName" name="productName">
+						</div>
+						<div class="input_wrap">
+							<label for="price">Price</label>
+							<input type="text" id="price" name="price">
+						</div>
+					</div>
+					<div class="input_wrap">
+						<label for="stock">Stock</label>
+						<input type="text" id="stock" name="stock">
+					</div>
+					<div class="input_wrap">
+						<label for="brand">Brand</label>
+						<input type="text" id="brand" name="brand">
+					</div>
+					<div class="input_wrap">
+						<label for="category">Category</label>
+						<input type="text" id="category" name="category">
+					</div>
+					<div class="input_wrap">
+				        <label for="image">Product Image</label>
+				        <input type="file" id="image" name="image">
+				    </div>
+					<div class="input_wrap">
+						<input type="submit" value="Add Product" class="submit_btn">
+					</div>
+   				</div>
+			</form>		
             </div>
         </div>
 
@@ -108,7 +142,7 @@
  	    		<div class="users">
  	    			<c:forEach var="user" items="${allUser.rows}">
          		   <div class="card">
-                <img src="http://localhost:8081/images/${user.image} " class="card-img-top" alt="...">
+                <img src="C:/xampp/tomcat/webapps/images/${user.image} " class="card-img-top" alt="...">
                 <div class="card-body">
                     <h4 class="card-title">${user.first_name} ${user.last_name}</h4>
                     <h5 class="card-text">${user.username}</h5>

@@ -111,8 +111,19 @@ public class DbConnection {
 				ResultSet result = statement.executeQuery();
 				if(result.next()) {
 					String role = result.getString("role");
-					if(role.toLowerCase() == MyConstants.ADMIN) return 1;
-					else return 0;
+					if(role.equalsIgnoreCase(MyConstants.ADMIN)) {
+						System.out.print("1-");
+						System.out.println(role);
+						return 1;
+					}
+					else {
+						System.out.print("0-");
+						System.out.println(role);
+						System.out.print("Constants-");
+						System.out.println(MyConstants.ADMIN);
+						
+						return 0;
+					}
 				}
 				else return -1;
 			} catch (SQLException e) { return -2; }

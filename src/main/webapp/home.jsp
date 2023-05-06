@@ -83,7 +83,7 @@
             <ul>
                 <li class="selected"><a href="#">Home</a></li>
                 <li><a href="#">Product</a></li>
-                <li><a href="${pageContext.request.contextPath}/pages/admin.jsp">Blog</a></li>
+                <li><a href="${pageContext.request.contextPath}/pages/admin.jsp">Admin</a></li>
                 <li><a href="#">Contact</a></li>
                 <li><a href="${pageContext.request.contextPath}/pages/user.jsp">Profile</a></li>
                 <li>

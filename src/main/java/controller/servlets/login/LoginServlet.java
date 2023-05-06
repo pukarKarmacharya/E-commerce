@@ -29,16 +29,37 @@ public class LoginServlet extends HttpServlet {
 		DbConnection connection = new DbConnection();
 		
 		Boolean isUserRegistered = connection.isUserRegistered(MyConstants.CHECK_LOGIN_INFO, user, pwd);
+		int isAdmin = connection.isAdmin(user);
+		System.out.println(isUserRegistered);
+		System.out.println(isAdmin);
+		
 		if(isUserRegistered != null && isUserRegistered){
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
-			//setting session to expiry in 30 mins
-			session.setMaxInactiveInterval(30*60);
+			if(isAdmin == 1) {
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+				//setting session to expiry in 30 mins
+				session.setMaxInactiveInterval(30*60);
 
-			Cookie userName = new Cookie("user", user);
-			userName.setMaxAge(30*60);
-			response.addCookie(userName);
-			response.sendRedirect(request.getContextPath()+"/home.jsp");
+				Cookie userName = new Cookie("user", user);
+				userName.setMaxAge(30*60);
+				response.addCookie(userName);
+				
+				response.sendRedirect(request.getContextPath()+"/pages/admin.jsp");
+			}
+			else {
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+				//setting session to expiry in 30 mins
+				session.setMaxInactiveInterval(30*60);
+
+				Cookie userName = new Cookie("user", user);
+				userName.setMaxAge(30*60);
+				response.addCookie(userName);
+				
+				
+				response.sendRedirect(request.getContextPath()+"/home.jsp");
+			}
+			
 		}else{
 			// set error message
 		    request.setAttribute("errorMessage", "Invalid username or password");

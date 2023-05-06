@@ -18,7 +18,7 @@ public class MyConstants {
 	// End Region: Database Configuration
 	
 	// Start Region: Select Query
-	public static final String CHECK_LOGIN_INFO = "SELECT username, password FROM register WHERE username = ?";
+	public static final String CHECK_LOGIN_INFO = "SELECT username, password FROM register WHERE username = ?";	
 	public static final String GET_ALL_INFO = "SELECT * FROM register";
 	public static final String GET_ALL_INFO_BY_ID = "SELECT * FROM register WHERE id = ?";
 	public static final String IS_USER = "SELECT role FROM register WHERE username = ?";
@@ -26,6 +26,12 @@ public class MyConstants {
 	// Start Region: Insert Query
 	public static final String USER_REGISTER = "INSERT INTO register"
 			+ "(first_name, last_name, username, password, role, image)"
+			+ " VALUES(?,?,?,?,?,?)";
+	// End Region: Insert Query
+	
+	// Start Region: Insert Query
+	public static final String ADD_PRODUCT = "INSERT INTO products"
+			+ "(product_name, price, stock, brand, category, image)"
 			+ " VALUES(?,?,?,?,?,?)";
 	// End Region: Insert Query
 	
