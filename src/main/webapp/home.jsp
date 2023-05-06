@@ -23,6 +23,12 @@
 	    String id = request.getParameter("deleteId");
 	    dbConn.deleteUser(MyConstants.DELETE_USER, id);
 	}
+	
+	if (request.getParameter("addToCart") != null) {
+	    String id = request.getParameter("addToCart");
+	    dbConn.deleteUser(MyConstants.ADDTOCART, id);
+	}
+	
 %>
 
 <!DOCTYPE html>
@@ -45,7 +51,7 @@
 	
 	<!-- Executing Query Using SQL Tag Library -->
 	<sql:query var="allProduct" dataSource="${dbConnection}">
-		SELECT product_name, price, stock, brand, category  FROM product
+		SELECT product_id, product_name, price, stock, brand, category  FROM product
 	</sql:query>
 		
 	<%-- <div class="flex-container">
@@ -159,9 +165,11 @@
                         <button type="submit">Update</button>
             	   	</form>
                		 <form method="post">
-                        <input type="hidden" name="deleteId" value="${product.username}" />
-                        <button type="submit">Delete</button>
+                        <input type="hidden" name="addToCart" value="${product.product_id}" />
+                        <button type="submit">addToCart</button>
                		</form>
+               		
+               		
             		</div>
       				</c:forEach>
        			</div>

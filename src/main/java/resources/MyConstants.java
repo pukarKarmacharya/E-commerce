@@ -53,4 +53,9 @@ public class MyConstants {
 	public static final String DELETE_Product = "DELETE FROM register WHERE ProductID=?";
 	// End Region: Delete Query
 
+	// Start Region: Delete Query
+	public static final String ADDTOCART = "INSERT INTO addtocart"
+			+ "(product_id)"
+			+ " VALUES(?)";
+	// End Region: Delete Query
 }

@@ -46,6 +46,11 @@
 	<sql:query var="allUser" dataSource="${dbConnection}">
 		SELECT first_name, last_name, username, image  FROM register WHERE role="user"
 	</sql:query>
+	
+	<!-- Executing Query Using SQL Tag Library -->
+	<sql:query var="allProduct" dataSource="${dbConnection}">
+		SELECT product_name, price, stock, brand, category  FROM product
+	</sql:query>
 
 	<header>
         <h1 class="logo"><a href="#">Reeven Store</a></h1>
@@ -125,6 +130,7 @@
    				</div>
 			</form>		
             </div>
+            
         </div>
 
         <div class="rightcolumn">
@@ -160,7 +166,27 @@
        			</div>
 			</div>
         </div>
-
+		<div class="users-info">
+ 	    		<div class="users">
+ 	    			<c:forEach var="product" items="${allProduct.rows}">
+         		   <div class="card">
+                <img src="http://localhost:8081/images/${product.image} " class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h4 class="card-title">${product.product_name} ${product.price}</h4>
+                    <h5 class="card-text">${product.product_name}</h5>
+                </div>
+           	     <form method="post">
+                        <input type="hidden" name="updateId" value="${product.product_name}" />
+                        <button type="submit">Update</button>
+            	   	</form>
+               		 <form method="post">
+                        <input type="hidden" name="deleteId" value="${product.username}" />
+                        <button type="submit">Delete</button>
+               		</form>
+            		</div>
+      				</c:forEach>
+       			</div>
+			</div>
     </div>
 
     <footer>
