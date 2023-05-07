@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@page import="resources.MyConstants"%>
 <%@page import="model.User"%>
 <%@page import="java.util.List"%>
 <%@page import="controller.dbconnection.DbConnection"%>
 <%@page import="controller.statemanagement.SessionManage"%>
-    
+
 <%! SessionManage mySession = new SessionManage(); %>
 <% 
 	//setting absolute path
@@ -28,41 +28,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
-	<link rel="stylesheet" type="text/css" 
-	href="${pageContext.request.contextPath}/css/user.css"/>
-	<style type="text/css">
-        body {
-            background-color: lightblue;
-        }
-    </style>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/user.css" />
+<style type="text/css">
+body {
+	background-color: lightblue;
+}
+</style>
 </head>
 <body>
 	<sql:setDataSource var="dbConnection" driver="com.mysql.jdbc.Driver"
-	url="jdbc:mysql://localhost:3306/reeven_store" user="root" password=""/>
-	
+		url="jdbc:mysql://localhost:3306/reeven_store" user="root" password="" />
+
 	<!-- Executing Query Using SQL Tag Library -->
 	<sql:query var="allUser" dataSource="${dbConnection}">
 		SELECT first_name, last_name, username, image  FROM register WHERE role="user"
 	</sql:query>
-	
+
 	<sql:query var="allAddToCart" dataSource="${dbConnection}">
-		SELECT product_id, product_name, price FROM product WHERE product_id IN (SELECT product_id FROM addtocart)
+		SELECT product_id, product_name, price,image FROM product WHERE product_id IN (SELECT product_id FROM addtocart)
 	</sql:query>
-	
+
 
 	<header>
-        <h1 class="logo"><a href="#">Reeven Store</a></h1>
-        <nav>
-            <ul>
-                <li><a href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
-                <li><a href="#">Product</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contact</a></li>
-                <li class="selected"><a href="${pageContext.request.contextPath}/pages/user.jsp">Profile</a></li>
-                <li>
-		    		<form action="
+		<h1 class="logo">
+			<a href="#">Reeven Store</a>
+		</h1>
+		<nav>
+			<ul>
+				<li><a href="${pageContext.request.contextPath}/home.jsp">Home</a></li>
+				<li><a href="${pageContext.request.contextPath}/home.jsp">Product</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/pages/about.html">Contact</a></li>
+				<li class="selected"><a
+					href="${pageContext.request.contextPath}/pages/user.jsp">Profile</a></li>
+				<li>
+					<form
+						action="
 		    				<%if(!mySession.checkUser(user)){
 		    					out.print(mainPath);%>/login.jsp<%
 		   					} 
@@ -70,102 +74,92 @@
 		    					out.print(mainPath);%>/LogoutServlet<%
 		   					}%>
 		    				"
-		    		method="post">
-		  			<input type="submit" value="
+						method="post">
+						<input type="submit"
+							value="
 		    			<%if(mySession.checkUser(user)){%>
 				    		Logout
 				   		<%}else{%>
 				    		Login
 				   		<%}%>
-			   		"/>
-		    		</form>
-		    	</li>
-            </ul>
-        </nav>
-    </header>
-    
-    <div class="box"></div>
-
-    <div class="row">
-        <div class="leftcolumn">
-            <div class="card">
-                <h2>Technology Influence</h2>
-                <h5>January 1, 2022 AT 11:00 PM</h5>
-                <p>Technolog and collaborative. </p>
-                <p>If we thi generations.</p>
-                
-           
-            </div>
-            
-        </div>
-
-        <div class="rightcolumn">
-            <div class="card">
-                <h2>About Us</h2>
-                <p>HardwareShop is a e-commerce company which provides wide range of products.</p>
-            </div>
-            <div class="card">
-                <h2>Follow Us</h2>
-                <p><a href="https://www.facebook.com/">@Facebook</a></p>
-                <p><a href="https://www.instagram.com/">@instagram</a></p>
-            </div>
-            
-            <div class="users-info">
- 	    		<div class="users">
- 	    		
- 	    			
-      				
-      				
-      				
-      				<c:forEach var="cart" items="${allAddToCart.rows}">
-         		    	<div class="card">
-                		<%-- <img src="http://localhost:808/images/${user.image} " class="card-img-top" alt="..."> --%>
-                			<div class="card-body">
-                    			<h4 class="card-title">${cart.product_name} ${cart.product_id}</h4>
-                    			<h5 class="card-text">${cart.price}</h5>
-                			</div> 
-                		</div>
-                		<input type="hidden" name="productId" value="${cart.product_id}">
-						<%-- <input type="hidden" name="productName" value="${cart.product_name}"> --%>
-						<input type="hidden" name="price" value="${cart.price}">
-						<c:out value ="${cart.price}"/>
-      				</c:forEach>
-      				<form action="${pageContext.request.contextPath}/OrderBy" method="post" enctype="multipart/form-data">
-                			<div class="input_grp">
-								<div class="input_wrap">
-									<label for="quantity">Quantity</label>
-									<input type="text" id="quantity" name="quantity">
-								</div>
-							</div>
-            		
-						<div class="form_wrap">
-							<label for="total">Total</label>
-							<input type="text" id="total" name="total">
-							
-							
-							<input type="hidden" name="user" value="<%=user%>">
-							<div class="input_wrap">
-								<input type="submit" value="Order" class="submit_btn">
-							</div>
-   						</div>
+			   		" />
 					</form>
-			
-       			</div>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<div class="box"></div>
+
+	<div class="row">
+		<div class="leftcolumn">
+			<div class="card">
+				<div class="grid">
+					<c:forEach var="cart" items="${allAddToCart.rows}">
+						<div class="grid-container">
+							<img src="http://localhost:8085/images/${cart.image} "
+								class="pic" alt="...">
+							<div class="card-body">
+								<h4 class="card-title">${cart.product_name}</h4>
+								<h5 class="card-text">${cart.price}</h5>
+							</div>
+
+							<input type="hidden" name="productId" value="${cart.product_id}">
+							<%-- <input type="hidden" name="productName" value="${cart.product_name}"> --%>
+							<input type="hidden" name="price" value="${cart.price}">
+							<%-- <c:out value="${cart.price}" /> --%>
+
+							<form action="${pageContext.request.contextPath}/OrderBy"
+								method="post" enctype="multipart/form-data">
+								<div>
+									<div>
+										<label for="quantity">Quantity</label> <input type="text"
+											id="quantity" name="quantity">
+									</div>
+								</div>
+								<div>
+									<label for="total">Total</label> <input type="text" id="total"
+										name="total"> <input type="hidden" name="user"
+										value="<%=user%>">
+									<div>
+										<br> <input type="submit" value="Order"
+											class="submit_btn">
+									</div>
+								</div>
+							</form>
+						</div>
+					</c:forEach>
+				</div>
 			</div>
-        </div>
+		</div>
+	
 
-    </div>
+	<div class="rightcolumn">
+		<div class="card"></div>
+		<div class="card">
+			<h2>Follow Us</h2>
+			<p>
+				<a href="https://www.facebook.com/">@Facebook</a>
+			</p>
+			<p>
+				<a href="https://www.instagram.com/">@instagram</a>
+			</p>
+		</div>
+	</div>
 
-    <footer>
-        <table width="100%">
-            <tr>
-                <th>
-                    <div style="color:black;font-family:Courier New;">
-                        <p>&copy; Reeven Store</p>
-                    </div>
-                </th>
-            </tr>
-        </table>
-    </footer>
+	</div>
+	
+
+	<footer>
+		<table width="100%">
+			<tr>
+				<th>
+					<div style="color: black; font-family: Courier New;">
+						<p>&copy; Reeven Store</p>
+					</div>
+				</th>
+			</tr>
+		</table>
+	</footer>
 </body>
 </html>

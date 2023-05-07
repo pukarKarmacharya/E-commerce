@@ -94,7 +94,7 @@ a:hover{
 }
 
 .card {
-	background-color: white;
+	background-color: #7aaacd;
 	padding: 20px;
 	margin-top: 20px
 }
@@ -118,7 +118,7 @@ a:hover{
 .grid {
 	display: grid;
 	grid-gap: 10px;
-	grid-auto-rows: minmax(800px, 1fr);
+	grid-auto-rows: minmax(400px, 1fr);
 	grid-template-columns:  repeat( auto-fill, minmax(300px, 1fr) );
 	
 }
@@ -334,6 +334,10 @@ li > form > input{
 	background-color: white;
 	color: #00ace6;
 }
+
+
+
+
 
 
 

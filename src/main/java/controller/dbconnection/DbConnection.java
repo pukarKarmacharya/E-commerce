@@ -277,11 +277,9 @@ public class DbConnection {
 				//if(isProductAlreadyAdded(productModel.getProductName())) return -1;
 				
 				PreparedStatement statement = dbConnection.prepareStatement(query);
-				statement.setInt(1, orderModel.getPrice());
-				statement.setInt(2, orderModel.getQuantity());
-				statement.setInt(3, orderModel.getTotal());
-				statement.setInt(4, orderModel.getProductId());
-				statement.setString(5, orderModel.getUserName());			
+				statement.setInt(1, orderModel.getQuantity());
+				statement.setInt(2, orderModel.getTotal());
+				statement.setString(3, orderModel.getUserName());			
 
 				int result = statement.executeUpdate();
 				if(result>=0) return 1;
