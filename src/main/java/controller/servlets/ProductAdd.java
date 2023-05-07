@@ -26,16 +26,7 @@ public class ProductAdd extends HttpServlet {
        
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String productName = request.getParameter("productName");
-		System.out.print("P-");
-		
-		
-		System.out.println(productName);
-		System.out.println(request.getParameter("price"));
-		System.out.println(request.getParameter("stock"));
-		
 		String user = request.getParameter("user");
-		System.out.println(user);
-		
 		int price = Integer.parseInt(request.getParameter("price"));
 		int stock = Integer.parseInt(request.getParameter("stock"));
 		System.out.println(price);

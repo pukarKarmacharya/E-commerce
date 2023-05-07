@@ -26,7 +26,7 @@
 	
 	if (request.getParameter("addToCart") != null) {
 	    int id = Integer.parseInt(request.getParameter("addToCart"));
-	    dbConn.addToCart(MyConstants.ADDTOCART, id);
+	    dbConn.addToCart(MyConstants.ADDTOCART, id, user);
 	}
 	
 %>

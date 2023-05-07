@@ -55,7 +55,7 @@ public class MyConstants {
 
 	// Start Region: Delete Query
 	public static final String ADDTOCART = "INSERT INTO addtocart"
-			+ "(product_id)"
-			+ " VALUES(?)";
+			+ "(product_id, user_id)"
+			+ " VALUES(?,(SELECT user_id FROM register WHERE username = ?))";
 	// End Region: Delete Query
 }

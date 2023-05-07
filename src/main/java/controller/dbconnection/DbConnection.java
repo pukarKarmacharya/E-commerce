@@ -220,13 +220,16 @@ public class DbConnection {
 		}else { return null; }
 	}
 	//	End region Delete operation
+	
 	//	Start region Delete operation
-	public Boolean addToCart(String query, int product_id) {
+	public Boolean addToCart(String query, int product_id, String user) {
 		Connection dbConnection = getConnection();
 		if(dbConnection != null) {
 			try {
 				PreparedStatement statement = dbConnection.prepareStatement(query);
 				statement.setInt(1, product_id);
+				statement.setString(2, user);
+				
 				int result = statement.executeUpdate();
 				if(result>=0)return true;
 				else return false;
