@@ -33,8 +33,8 @@ public class MyConstants {
 	
 	// Start Region: Insert Query
 	public static final String ADD_PRODUCT = "INSERT INTO product"
-			+ "(product_name, price, stock, brand, category, image)"
-			+ " VALUES(?,?,?,?,?,?)";
+			+ "(product_name, price, stock, brand, category, image, username)"
+			+ " VALUES(?,?,?,?,?,?,?)";
 	// End Region: Insert Query
 	
 	// Start Region: Update Query

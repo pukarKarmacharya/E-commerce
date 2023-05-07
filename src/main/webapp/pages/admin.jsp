@@ -123,7 +123,8 @@
 					<div class="input_wrap">
 				        <label for="image">Product Image</label>
 				        <input type="file" id="image" name="image">
-				    </div>
+				    </div>	
+				    <input type="hidden" name="user" value="<%=user%>">
 					<div class="input_wrap">
 						<input type="submit" value="Add Product" class="submit_btn">
 					</div>

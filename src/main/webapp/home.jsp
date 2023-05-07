@@ -53,6 +53,8 @@
 	<sql:query var="allProduct" dataSource="${dbConnection}">
 		SELECT product_id, product_name, price, stock, brand, category  FROM product
 	</sql:query>
+	
+	
 		
 	<%-- <div class="flex-container">
 	  	<h1 class="logo"><a href="#">Brand</a></h1>
@@ -116,8 +118,8 @@
     </header>
   
   	<div class="box"></div>
-  
-  	<div class="grid">
+  	
+  	<!-- <div class="grid">
         <div class="grid-container">
             <img class="pic" src="">
             <h3>Bosh Jigsaw</h3>
@@ -149,16 +151,16 @@
             <p>NRP. 100</p>
             <p><button>Add to Cart</button></p>
         </div>
-    </div>
+    </div> -->
   	
-		<div class="users-info">
- 	    		<div class="users">
+		<div class="grid">
+ 	    		<div class="grid-container">
  	    			<c:forEach var="product" items="${allProduct.rows}">
          		   <div class="card">
-                <img src="http://localhost:8081/images/${product.image} " class="card-img-top" alt="...">
+                <img src="http://localhost:8081/images/${product.image} " class="pic" alt="...">
                 <div class="card-body">
                     <h4 class="card-title">${product.product_name} ${product.price}</h4>
-                    <h5 class="card-text">${product.product_name}</h5>
+                    <h3 class="card-text">${product.product_name}</h3>
                 </div>
            	     <form method="post">
                         <input type="hidden" name="updateId" value="${product.product_name}" />

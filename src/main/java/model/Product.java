@@ -7,19 +7,20 @@ import javax.servlet.http.Part;
 import resources.MyConstants;
 
 public class Product {
-	String productName, brand, category, imageUrlFromPart;
+	String productName, brand, category, imageUrlFromPart, userName;
 	int price, stock;
 	
 	public Product() {}
 	
 	public Product(String productName, int price, int stock, 
-			String brand, String category, Part part){
+			String brand, String category, Part part, String userName){
 		this.productName = productName;
 		this.price = price;
 		this.stock = stock;
 		this.brand = brand;
 		this.category = category;
 		this.imageUrlFromPart = getImageUrl(part);
+		this.userName = userName;
 	}
 
 	public String getProductName() {
@@ -30,6 +31,14 @@ public class Product {
 		this.productName = productName;
 	}
 
+	public String getUserName() {
+		return productName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 	public int getPrice() {
 		return price;
 	}

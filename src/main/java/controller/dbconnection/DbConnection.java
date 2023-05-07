@@ -249,6 +249,8 @@ public class DbConnection {
 				statement.setString(4, productModel.getBrand());
 				statement.setString(5, productModel.getCategory());
 				statement.setString(6, productModel.getImageUrlFromPart());
+				statement.setString(7, productModel.getUserName());
+				
 
 				int result = statement.executeUpdate();
 				if(result>=0) return 1;

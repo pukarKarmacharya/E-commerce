@@ -24,10 +24,10 @@
 			<form action="LoginServlet" method="post" class="form form-login">
 		        <div class="form-field">
 			        <label class="user" for="login-username">
-			        	<span class="hidden">Username</span>
+			        	<span class="hidden">Email</span>
 		        	</label>
 					<input id="login-username" type="text" class="form-input" 
-							placeholder="Username" name="userName" required/>
+							placeholder="User@email.com" name="userName" required/>
 				</div>
 				<div class="form-field">
 					<label class="lock" for="login-password">
