@@ -37,6 +37,12 @@ public class MyConstants {
 			+ " VALUES(?,?,?,?,?,?,(SELECT user_id FROM register WHERE username = ?))";
 	// End Region: Insert Query
 	
+	// Start Region: Insert Query
+	public static final String ORDER_BY = "INSERT INTO order"
+			+ "(quantity, total, user_id)"
+			+ " VALUES(?,?,(SELECT user_id FROM register WHERE username = ?))";
+	// End Region: Insert Query
+	
 	// Start Region: Update Query
 	public static final String UPDATE_USER_INFO = "UPDATE register SET first_name=?, "
 				+ "last_name=?, username=?, role=? WHERE username=?";

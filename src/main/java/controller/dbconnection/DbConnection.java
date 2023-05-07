@@ -11,6 +11,8 @@ import java.util.List;
 import model.PasswordEncryptionWithAes;
 import model.User;
 import model.Product;
+import model.Order;
+
 
 import resources.MyConstants;
 
@@ -261,6 +263,30 @@ public class DbConnection {
 			} catch (Exception e) {
 				System.out.print("add-");
 				System.out.println(e);
+				return -2; 
+				}
+		}else { return -3; }
+	}
+	//	End region Create operation
+	
+//	Start region Create operation
+	public int orderBy(String query, Order orderModel) {
+		Connection dbConnection = getConnection();
+		if(dbConnection != null) {
+			try {
+				//if(isProductAlreadyAdded(productModel.getProductName())) return -1;
+				
+				PreparedStatement statement = dbConnection.prepareStatement(query);
+				statement.setInt(1, orderModel.getPrice());
+				statement.setInt(2, orderModel.getQuantity());
+				statement.setInt(3, orderModel.getTotal());
+				statement.setInt(4, orderModel.getProductId());
+				statement.setString(5, orderModel.getUserName());			
+
+				int result = statement.executeUpdate();
+				if(result>=0) return 1;
+				else return 0;
+			} catch (Exception e) {
 				return -2; 
 				}
 		}else { return -3; }

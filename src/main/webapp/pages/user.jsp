@@ -46,6 +46,11 @@
 	<sql:query var="allUser" dataSource="${dbConnection}">
 		SELECT first_name, last_name, username, image  FROM register WHERE role="user"
 	</sql:query>
+	
+	<sql:query var="allAddToCart" dataSource="${dbConnection}">
+		SELECT product_id, product_name, price FROM product WHERE product_id IN (SELECT product_id FROM addtocart)
+	</sql:query>
+	
 
 	<header>
         <h1 class="logo"><a href="#">Reeven Store</a></h1>
@@ -107,23 +112,44 @@
             
             <div class="users-info">
  	    		<div class="users">
- 	    			<c:forEach var="user" items="${allUser.rows}">
-         		   <div class="card">
-                <img src="http://localhost:8081/images/${user.image} " class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h4 class="card-title">${user.first_name} ${user.last_name}</h4>
-                    <h5 class="card-text">${user.username}</h5>
-                </div>
-           	     <form method="post">
-                        <input type="hidden" name="updateId" value="${user.username}" />
-                        <button type="submit">Update</button>
-            	   	</form>
-               		 <form method="post">
-                        <input type="hidden" name="deleteId" value="${user.username}" />
-                        <button type="submit">Delete</button>
-               		</form>
-            		</div>
+ 	    		
+ 	    			
+      				
+      				
+      				
+      				<c:forEach var="cart" items="${allAddToCart.rows}">
+         		    	<div class="card">
+                		<%-- <img src="http://localhost:808/images/${user.image} " class="card-img-top" alt="..."> --%>
+                			<div class="card-body">
+                    			<h4 class="card-title">${cart.product_name} ${cart.product_id}</h4>
+                    			<h5 class="card-text">${cart.price}</h5>
+                			</div> 
+                		</div>
+                		<input type="hidden" name="productId" value="${cart.product_id}">
+						<%-- <input type="hidden" name="productName" value="${cart.product_name}"> --%>
+						<input type="hidden" name="price" value="${cart.price}">
+						<c:out value ="${cart.price}"/>
       				</c:forEach>
+      				<form action="${pageContext.request.contextPath}/OrderBy" method="post" enctype="multipart/form-data">
+                			<div class="input_grp">
+								<div class="input_wrap">
+									<label for="quantity">Quantity</label>
+									<input type="text" id="quantity" name="quantity">
+								</div>
+							</div>
+            		
+						<div class="form_wrap">
+							<label for="total">Total</label>
+							<input type="text" id="total" name="total">
+							
+							
+							<input type="hidden" name="user" value="<%=user%>">
+							<div class="input_wrap">
+								<input type="submit" value="Order" class="submit_btn">
+							</div>
+   						</div>
+					</form>
+			
        			</div>
 			</div>
         </div>
