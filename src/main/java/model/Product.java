@@ -32,7 +32,7 @@ public class Product {
 	}
 
 	public String getUserName() {
-		return productName;
+		return userName;
 	}
 
 	public void setUserName(String userName) {

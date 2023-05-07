@@ -25,8 +25,8 @@
 	}
 	
 	if (request.getParameter("addToCart") != null) {
-	    String id = request.getParameter("addToCart");
-	    dbConn.deleteUser(MyConstants.ADDTOCART, id);
+	    int id = Integer.parseInt(request.getParameter("addToCart"));
+	    dbConn.addToCart(MyConstants.ADDTOCART, id);
 	}
 	
 %>
@@ -51,7 +51,7 @@
 	
 	<!-- Executing Query Using SQL Tag Library -->
 	<sql:query var="allProduct" dataSource="${dbConnection}">
-		SELECT product_id, product_name, price, stock, brand, category  FROM product
+		SELECT product_id, product_name, price, stock, brand, category, image  FROM product
 	</sql:query>
 	
 	
@@ -157,7 +157,7 @@
  	    		<div class="grid-container">
  	    			<c:forEach var="product" items="${allProduct.rows}">
          		   <div class="card">
-                <img src="http://localhost:8081/images/${product.image} " class="pic" alt="...">
+                <img src="http://localhost:8085/images/${product.image} " class="pic" alt="...">
                 <div class="card-body">
                     <h4 class="card-title">${product.product_name} ${product.price}</h4>
                     <h3 class="card-text">${product.product_name}</h3>

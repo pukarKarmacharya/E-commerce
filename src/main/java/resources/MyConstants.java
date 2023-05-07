@@ -13,7 +13,7 @@ public class MyConstants {
 	public static final String ADMIN = "admin";
 	public static final String USER = "user";
 	
-	public static final String IMAGE_DIR = "xampp\\tomcat\\webapps\\images\\";
+	public static final String IMAGE_DIR = "Program Files\\Apache Software Foundation\\Tomcat 10.1\\webapps\\images\\";
 	public static final String IMAGE_DIR_SAVE_PATH = "C:" + File.separator + IMAGE_DIR;
 	// End Region: Database Configuration
 	
@@ -33,8 +33,8 @@ public class MyConstants {
 	
 	// Start Region: Insert Query
 	public static final String ADD_PRODUCT = "INSERT INTO product"
-			+ "(product_name, price, stock, brand, category, image, username)"
-			+ " VALUES(?,?,?,?,?,?,?)";
+			+ "(product_name, price, stock, brand, category, image, user_id)"
+			+ " VALUES(?,?,?,?,?,?,(SELECT user_id FROM register WHERE username = ?))";
 	// End Region: Insert Query
 	
 	// Start Region: Update Query
