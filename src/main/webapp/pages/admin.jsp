@@ -96,11 +96,11 @@ body {
 					<div>
 						<div>
 							<div>
-								<label for="productName"><h3>Product Name</h3></label> <input
+								<label for="productName">Product Name</label> <input
 									type="text" id="productName" name="productName">
 							</div>
 							<div>
-								<label for="price"><p>Price</p></label> <input type="text"
+								<label for="price">Price</label> <input type="text"
 									id="price" name="price">
 							</div>
 						</div>
@@ -182,6 +182,7 @@ body {
 						</c:forEach>
 					</div>
 				</div>
+				<h4><a href="">Change Password</a></h4>
 			</div>
 			<div class="card">
 				<h2>Follow Us</h2>
@@ -194,7 +195,6 @@ body {
 			</div>
 		</div>
 	</div>	
-	</div>
 
 	<footer>
 		<table width="100%">

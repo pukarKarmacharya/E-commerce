@@ -30,8 +30,6 @@ public class LoginServlet extends HttpServlet {
 		
 		Boolean isUserRegistered = connection.isUserRegistered(MyConstants.CHECK_LOGIN_INFO, user, pwd);
 		int isAdmin = connection.isAdmin(user);
-		System.out.println(isUserRegistered);
-		System.out.println(isAdmin);
 		
 		if(isUserRegistered != null && isUserRegistered){
 			if(isAdmin == 1) {

@@ -58,11 +58,11 @@ body{
 	justify-content: space-between;
 }
 
-.form_wrap .input_grp  input[type="text"]{
+.form_wrap .input_grp  input[type="text"],.form_wrap .input_grp input[type="email"]{
 	width: 165px;
 }
 
-.form_wrap  input[type="text"], .form_wrap input[type="password"]{
+.form_wrap  input[type="text"], .form_wrap input[type="password"], .form_wrap input[type="email"]{
 	width: 100%;
 	border-radius: 3px;
 	border: 1px solid #9597a6;
@@ -70,7 +70,7 @@ body{
 	outline: none;
 }
 
-.form_wrap  input[type="text"]:focus, .form_wrap input[type="password"]:focus{
+.form_wrap  input[type="text"]:focus,.form_wrap  input[type="email"]:focus, .form_wrap input[type="password"]:focus{
 	border-color: #ebd0ce;
 }
 

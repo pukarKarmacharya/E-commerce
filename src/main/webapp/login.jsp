@@ -26,7 +26,7 @@
 				<div class="form-field">
 					<label class="user" for="login-username"> <span
 						class="hidden">Email</span>
-					</label> <input id="login-username" type="text" class="form-input"
+					</label> <input id="login-username" type="email" class="form-input"
 						placeholder="User@email.com" name="userName" required />
 				</div>
 				<div class="form-field">

@@ -11,6 +11,7 @@ import java.util.List;
 import model.PasswordEncryptionWithAes;
 import model.User;
 import model.Product;
+import model.Cart;
 import model.Order;
 
 
@@ -88,6 +89,23 @@ public class DbConnection {
 						
 	}
 	
+//	Start region Update operation
+	public Boolean updateStock(String query, int productId, int stock) {
+		Connection dbConnection = getConnection();
+		if(dbConnection != null) {
+			try {
+				PreparedStatement statement = dbConnection.prepareStatement(query);
+				statement.setInt(1, stock);
+				statement.setInt(2, productId);
+				int result = statement.executeUpdate();
+				System.out.print("uuuu");
+				if(result>=0)return true;
+				else return false;
+			} catch (SQLException e) { return null; }
+		}else { return null; }
+	}
+	//	End region Update operation
+	
 	public Boolean isProductAlreadyAdded(String productName) {
 		Connection dbConnection = getConnection();
 		if(dbConnection != null) {
@@ -147,16 +165,16 @@ public class DbConnection {
 				if(result.next()) {
 					String role = result.getString("role");
 					if(role.equalsIgnoreCase(MyConstants.ADMIN)) {
-						System.out.print("1-");
-						System.out.println(role);
+						/*
+						 * System.out.print("1-"); System.out.println(role);
+						 */
 						return 1;
 					}
 					else {
-						System.out.print("0-");
-						System.out.println(role);
-						System.out.print("Constants-");
-						System.out.println(MyConstants.ADMIN);
-						
+						/*
+						 * System.out.print("0-"); System.out.println(role);
+						 * System.out.print("Constants-"); System.out.println(MyConstants.ADMIN);
+						 */
 						return 0;
 					}
 				}
@@ -194,12 +212,13 @@ public class DbConnection {
 	//	End region Create operation
 	
 	//	Start region Update operation
-	public Boolean updateUser(String query, String username) {
+	public Boolean updateUser(String query, String firstname) {
 		Connection dbConnection = getConnection();
 		if(dbConnection != null) {
 			try {
 				PreparedStatement statement = dbConnection.prepareStatement(query);
-				statement.setString(1, username);
+				statement.setString(1, firstname);
+				
 				int result = statement.executeUpdate();
 				if(result>=0)return true;
 				else return false;
@@ -224,7 +243,23 @@ public class DbConnection {
 	//	End region Delete operation
 	
 	//	Start region Delete operation
-	public Boolean addToCart(String query, int product_id, String user) {
+	public Boolean deleteAddToCart(String query, int productId) {
+		Connection dbConnection = getConnection();
+		if(dbConnection != null) {
+			try {
+				PreparedStatement statement = dbConnection.prepareStatement(query);
+				statement.setInt(1, productId);
+				System.out.println("ddd");
+				int result = statement.executeUpdate();
+				if(result>=0)return true;
+				else return false;
+			} catch (SQLException e) { return null; }
+		}else { return null; }
+	}
+	//	End region Delete operation
+	
+	//	Start region Delete operation
+	public Boolean updateAddToCart(String query, int product_id, String user) {
 		Connection dbConnection = getConnection();
 		if(dbConnection != null) {
 			try {
@@ -238,7 +273,36 @@ public class DbConnection {
 			} catch (SQLException e) { return null; }
 		}else { return null; }
 	}
+	
+	
 	//	End region Delete operation
+	
+//	Start region Create operation
+	public int addToCart(String query, Cart cartModel) {
+		Connection dbConnection = getConnection();
+		if(dbConnection != null) {
+			try {
+				//if(isProductAlreadyAdded(productModel.getProductName())) return -1;
+				
+				PreparedStatement statement = dbConnection.prepareStatement(query);
+				statement.setString(1, cartModel.getProductName());
+				statement.setInt(2, cartModel.getPrice());
+				statement.setInt(3, cartModel.getQuantity());
+				statement.setInt(4, cartModel.getAmount());
+				statement.setString(5, cartModel.getImage());
+				statement.setInt(6, cartModel.getStock());
+				statement.setInt(7, cartModel.getProductId());
+				statement.setString(8, cartModel.getUserName());
+
+				int result = statement.executeUpdate();
+				if(result>=0) return 1;
+				else return 0;
+			} catch (Exception e) {
+				return -2; 
+				}
+		}else { return -3; }
+	}
+	//	End region Create operation
 	
 //	Start region Create operation
 	public int addProduct(String query, Product productModel) {
@@ -279,7 +343,8 @@ public class DbConnection {
 				PreparedStatement statement = dbConnection.prepareStatement(query);
 				statement.setInt(1, orderModel.getQuantity());
 				statement.setInt(2, orderModel.getTotal());
-				statement.setString(3, orderModel.getUserName());			
+				statement.setInt(3, orderModel.getProduct_id());
+				statement.setString(4, orderModel.getUserName());			
 
 				int result = statement.executeUpdate();
 				if(result>=0) return 1;
@@ -304,7 +369,6 @@ public class DbConnection {
 			} catch (SQLException e) { return null; }
 		}else { return null; }
 	}
-	//	End region Update operation
 	
 	//	Start region Delete operation
 	public Boolean deleteProduct(String query, String productName) {

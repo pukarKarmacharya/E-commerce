@@ -38,17 +38,16 @@ public class MyConstants {
 	// End Region: Insert Query
 	
 	// Start Region: Insert Query
-	public static final String ORDER_BY = "INSERT INTO order"
-			+ "(quantity, total, user_id)"
-			+ " VALUES(?,?,(SELECT user_id FROM register WHERE username = ?))";
+	public static final String ORDER_BY = "INSERT INTO orderby"
+			+ "(quantity, total, product_id, user_id)"
+			+ " VALUES(?,?,?,(SELECT user_id FROM register WHERE username = ?))";
 	// End Region: Insert Query
 	
 	// Start Region: Update Query
-	public static final String UPDATE_USER_INFO = "UPDATE register SET first_name=?, "
-				+ "last_name=?, username=?, role=? WHERE username=?";
+	public static final String UPDATE_USER_INFO = "UPDATE register SET first_name=?";
 	// End Region: Update Query
 	
-	public static final String UPDATE_PRODUCT_INFO = "UPDATE register SET productName=?, "
+	public static final String UPDATE_PRODUCT_INFO = "UPDATE product SET productName=?, "
 			+ "price=?, stock=?, brand=? catagory=? WHERE productID=?";
 		
 	// Start Region: Delete Query
@@ -61,7 +60,16 @@ public class MyConstants {
 
 	// Start Region: Delete Query
 	public static final String ADDTOCART = "INSERT INTO addtocart"
-			+ "(product_id, user_id)"
-			+ " VALUES(?,(SELECT user_id FROM register WHERE username = ?))";
+			+ "(product_name, price, quantity, amount,image, stock, product_id, user_id)"
+			+ " VALUES(?,?,?,?,?,?,?,(SELECT user_id FROM register WHERE username = ?))";
+	// End Region: Delete Query
+	
+	// Start Region: Update Query
+	public static final String UPDATE_STOCK = "UPDATE product SET stock=? "
+				+ "WHERE product_id=?";
+	// End Region: Update Query
+	
+	// Start Region: Delete Query
+	public static final String DELETE_ADDTOCART = "DELETE FROM addtocart WHERE product_id=?";
 	// End Region: Delete Query
 }

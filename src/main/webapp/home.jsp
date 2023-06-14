@@ -8,29 +8,27 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 
-<%! SessionManage mySession = new SessionManage(); %>
-<% 
-	//setting absolute path
-	String mainPath = request.getContextPath();
-	// invoking session username
-	String user = (String) session.getAttribute("user");
-	String search = (String) session.getAttribute("search");
-	
+<%!SessionManage mySession = new SessionManage();%>
+<%
+//setting absolute path
+String mainPath = request.getContextPath();
+// invoking session username
+String user = (String) session.getAttribute("user");
+String search = (String) session.getAttribute("search");
 
-	// Creating new database model object
-	DbConnection dbConn = new DbConnection();
+// Creating new database model object
+DbConnection dbConn = new DbConnection();
 
-	// Deleting item on database when delete button is clicked.
-	if (request.getParameter("deleteId") != null) {
-	    String id = request.getParameter("deleteId");
-	    dbConn.deleteUser(MyConstants.DELETE_USER, id);
-	}
-	
-	if (request.getParameter("addToCart") != null) {
-	    int id = Integer.parseInt(request.getParameter("addToCart"));
-	    dbConn.addToCart(MyConstants.ADDTOCART, id, user);
-	}
-	
+// Deleting item on database when delete button is clicked.
+if (request.getParameter("deleteId") != null) {
+	String id = request.getParameter("deleteId");
+	dbConn.deleteUser(MyConstants.DELETE_USER, id);
+}
+
+/* if (request.getParameter("addToCart") != null) {
+	int id = Integer.parseInt(request.getParameter("addToCart"));
+	dbConn.addToCart(MyConstants.ADDTOCART, id, user);
+} */
 %>
 
 <!DOCTYPE html>
@@ -56,10 +54,6 @@ body {
 		SELECT product_id, product_name, price, stock, brand, category, image FROM product
 	</sql:query>
 
-	<sql:query var="allSearch" dataSource="${dbConnection}">
-		SELECT product_id, product_name, price, stock, brand, image  FROM product WHERE category="search"
-	</sql:query>
-
 	<header>
 		<h1 class="logo">
 			<a href="#">Reeven Store</a>
@@ -67,38 +61,28 @@ body {
 		<nav>
 			<ul>
 				<li class="selected"><a href="#">Home</a></li>
-				<li><a href="${pageContext.request.contextPath}/home.jsp">Product</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/pages/product.jsp">Product</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/pages/about.html">Contact</a></li>
 				<li><a href="${pageContext.request.contextPath}/pages/user.jsp">Profile</a></li>
 				<li>
 					<form
 						action="
-		    				<%if(!mySession.checkUser(user)){
-		    					out.print(mainPath);%>/login.jsp<%
-		   					} 
-		    				else {
-		    					out.print(mainPath);%>/LogoutServlet<%
-		   					}%>
+		    				<%if (!mySession.checkUser(user)) {
+								out.print(mainPath);%>/login.jsp<%} else {
+								out.print(mainPath);%>/LogoutServlet<%}%>
 		    				"
 						method="post">
 						<input type="submit"
 							value="
-		    			<%if(mySession.checkUser(user)){%>
+		    			<%if (mySession.checkUser(user)) {%>
 				    		Logout
-				   		<%}else{%>
+				   		<%} else {%>
 				    		Login
 				   		<%}%>
 			   		" />
 					</form>
-				</li>
-				<li>
-					<form action="${pageContext.request.contextPath}/SearchBy"
-						method="post">
-						<input type="text" id="search" name="search"> <input
-							type="submit" value="search" class="submit_btn">
-					</form>
-					<h2></h2>
 				</li>
 			</ul>
 		</nav>
@@ -109,54 +93,23 @@ body {
 	<div class="grid">
 		<c:forEach var="product" items="${allProduct.rows}">
 			<div class="grid-container">
-
-				<div class="card">
-					<img src="http://localhost:8085/images/${product.image} "
-						class="pic" alt="...">
-					<div class="card-body">
-						<h4 class="card-title">${product.product_name}
-							${product.price}</h4>
-						<h3 class="card-text">${product.product_name}</h3>
-					</div>
-					<form method="post">
-						<input type="hidden" name="updateId"
-							value="${product.product_name}" />
-						<button type="submit">Update</button>
+				<img src="http://localhost:8085/images/${product.image} "
+					class="pic" alt="...">
+				<h3>${product.product_name}</h3>
+				<p class="text2">Rs. ${product.price}</p>
+				<form action="${pageContext.request.contextPath}/AddCart" method="post">
+					<input type="hidden" name="productName" value="${product.product_name}">
+					<input type="hidden" name="price" value="${product.price}">
+					<input type="hidden" name="stock" value="${product.stock}">
+					<input type="hidden" name="image" value="${product.image}">
+					<input type="hidden" name="productId" value="${product.product_id}">
+					<input type="hidden" name="user" value="<%=user%>">
+					<input type="submit" value="AddToCart" class="submit_btn">
 					</form>
-					<form method="post">
-						<input type="hidden" name="addToCart"
-							value="${product.product_id}" />
-						<button type="submit">addToCart</button>
-					</form>
-				</div>
-
 			</div>
 		</c:forEach>
-
-		<c:forEach var="s" items="${allSearch.rows}">
-
-			<div class="grid-container">
-				<div class="card">
-					<img src="http://localhost:8085/images/${s.image} " class="pic"
-						alt="...">
-					<div class="card-body">
-						<h4 class="card-title">${s.product_name}${s.price}</h4>
-						<h3 class="card-text">${s.product_name}</h3>
-					</div>
-					<form method="post">
-						<input type="hidden" name="updateId" value="${s.product_name}" />
-						<button type="submit">Update</button>
-					</form>
-					<form method="post">
-						<input type="hidden" name="addToCart" value="${s.product_id}" />
-						<button type="submit">addToCart</button>
-					</form>
-				</div>
-				<h2><%=search %></h2>
-			</div>
-		</c:forEach>
-
 	</div>
+
 	<footer>
 		<table width="100%">
 			<tr>

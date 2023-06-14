@@ -32,8 +32,8 @@
 						</div>
 					</div>
 					<div class="input_wrap">
-						<label for="username">Username</label>
-						<input type="text" id="username" name="username">
+						<label for="username">UserEmail</label>
+						<input type="email" id="username" name="username">
 					</div>
 					<div class="input_wrap">
 						<label for="password">Password</label>

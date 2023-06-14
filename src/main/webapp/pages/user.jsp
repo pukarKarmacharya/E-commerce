@@ -23,6 +23,10 @@
 	    String id = request.getParameter("deleteId");
 	    dbConn.deleteUser(MyConstants.DELETE_USER, id);
 	}
+	if (request.getParameter("firstNameId") != null) {
+	    String id = request.getParameter("firstNameId");
+	    dbConn.updateUser(MyConstants.UPDATE_USER_INFO, id);
+	}
 %>
 
 <!DOCTYPE html>
@@ -44,13 +48,23 @@ body {
 
 	<!-- Executing Query Using SQL Tag Library -->
 	<sql:query var="allUser" dataSource="${dbConnection}">
-		SELECT first_name, last_name, username, image  FROM register WHERE role="user"
+		SELECT first_name, last_name, image, username  FROM register WHERE username=?;
+	<sql:param value="${user}" />
 	</sql:query>
+
+<%-- 	<sql:query var="allAddToCart" dataSource="${dbConnection}">
+		SELECT product_id, product_name, price,image FROM product WHERE product_id IN (SELECT product_id FROM addtocart)
+	</sql:query> --%>
 
 	<sql:query var="allAddToCart" dataSource="${dbConnection}">
-		SELECT product_id, product_name, price,image FROM product WHERE product_id IN (SELECT product_id FROM addtocart)
+		SELECT product_id, product_name, price, sum(quantity) AS qty, sum(amount) AS amt, image, stock FROM addtocart WHERE user_id = (SELECT user_id FROM register WHERE username = ?) GROUP BY product_id ;
+	<sql:param value="${user}" />	
 	</sql:query>
-
+	
+	<sql:query var="allOrder" dataSource="${dbConnection}">
+		SELECT sum(quantity) AS qty, sum(amount) AS amt FROM addtocart WHERE user_id = (SELECT user_id FROM register WHERE username = ?);
+	<sql:param value="${user}" />	
+	</sql:query>
 
 	<header>
 		<h1 class="logo">
@@ -93,62 +107,84 @@ body {
 
 	<div class="row">
 		<div class="leftcolumn">
-			<div class="card">
-				<div class="grid">
-					<c:forEach var="cart" items="${allAddToCart.rows}">
-						<div class="grid-container">
-							<img src="http://localhost:8085/images/${cart.image} "
-								class="pic" alt="...">
-							<div class="card-body">
-								<h4 class="card-title">${cart.product_name}</h4>
-								<h5 class="card-text">${cart.price}</h5>
-							</div>
 
+			<div class="grid">
+				<c:forEach var="cart" items="${allAddToCart.rows}">
+					<div class="grid-container">
+						<img src="http://localhost:8085/images/${cart.image} " class="pic"
+							alt="...">
+						<h4>${cart.product_name}</h4>
+						<p class="text2">Rs. ${cart.price}</p>
+						<p>Quantity:- ${cart.qty}</p>
+						<p class="text2">Total Amount:- Rs. ${cart.amt}</p>
+						<form action="${pageContext.request.contextPath}/OrderBy" method="post">
 							<input type="hidden" name="productId" value="${cart.product_id}">
-							<%-- <input type="hidden" name="productName" value="${cart.product_name}"> --%>
-							<input type="hidden" name="price" value="${cart.price}">
-							<%-- <c:out value="${cart.price}" /> --%>
+							<input type="hidden" name="quantity" value="${cart.qty}">
+							<input type="hidden" name="total" value="${cart.amt}">
+							<input type="hidden" name="stock" value="${cart.stock}">
+							<input type="hidden" name="user" value="<%=user%>">
+							<input type="submit" value="Order" class="submit_btn">
+						</form>
 
-							<form action="${pageContext.request.contextPath}/OrderBy"
-								method="post" enctype="multipart/form-data">
-								<div>
-									<div>
-										<label for="quantity">Quantity</label> <input type="text"
-											id="quantity" name="quantity">
-									</div>
-								</div>
-								<div>
-									<label for="total">Total</label> <input type="text" id="total"
-										name="total"> <input type="hidden" name="user"
-										value="<%=user%>">
-									<div>
-										<br> <input type="submit" value="Order"
-											class="submit_btn">
-									</div>
-								</div>
-							</form>
-						</div>
-					</c:forEach>
-				</div>
+					</div>
+				</c:forEach>
+
 			</div>
 		</div>
-	
 
-	<div class="rightcolumn">
-		<div class="card"></div>
-		<div class="card">
-			<h2>Follow Us</h2>
-			<p>
-				<a href="https://www.facebook.com/">@Facebook</a>
-			</p>
-			<p>
-				<a href="https://www.instagram.com/">@instagram</a>
-			</p>
+		<div class="rightcolumn">
+			<div class="card">
+					<h3>Your Total Order:</h3>
+					<c:forEach var="order" items="${allOrder.rows}">
+					<p>Quantity:- ${order.qty }</p>
+					<input type="hidden" name="quantity" value="${order.qty}">
+					<p class="text2">Total Amount:- Rs. ${order.amt }</p>
+					<input type="hidden" name="amount" value="${order.amt}">
+					</c:forEach>
+			</div>
+			<div class="card">
+				<h2>Your Profile</h2>
+				<div class="users-info">
+					<div class="users">
+						<c:forEach var="user" items="${allUser.rows}">
+							<div class="card">
+								<img src="http://localhost:8085/images/${user.image} "
+									class="card-img-top" alt="...">
+								<div class="card-body">
+									<h4 class="card-title">${user.first_name}
+										${user.last_name}</h4>
+									<h5 class="card-text">${user.username}</h5>
+								</div>
+								<form method="post">
+									First Name:-
+									<input type="text" id="firstNameId" name="firstNameId">
+									<input type="hidden" name="firstNameId" value="firstNameId" />
+									<button type="submit">Update</button>
+								</form>
+
+								<form method="post">
+									<input type="hidden" name="deleteId" value="${user.username}" />
+									<button type="submit">Delete</button>
+								</form>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+				<!-- <a href="">Change Password</a> -->
+			</div>
+			<div class="card">
+				<h2>Follow Us</h2>
+				<p>
+					<a href="https://www.facebook.com/">@Facebook</a>
+				</p>
+				<p>
+					<a href="https://www.instagram.com/">@instagram</a>
+				</p>
+			</div>
 		</div>
-	</div>
 
 	</div>
-	
+
 
 	<footer>
 		<table width="100%">

@@ -29,8 +29,6 @@ public class ProductAdd extends HttpServlet {
 		String user = request.getParameter("user");
 		int price = Integer.parseInt(request.getParameter("price"));
 		int stock = Integer.parseInt(request.getParameter("stock"));
-		System.out.println(price);
-		System.out.println(stock);
 		String brand = request.getParameter("brand");
 		String category = request.getParameter("category");
 		Part imagePart = request.getPart("image");	
